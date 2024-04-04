@@ -1,10 +1,10 @@
 const router=require("express").Router()
 const usermdal=require("./database")
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 //  const nodemailer=require("nodemailer")
 
- const saltRounds = 10;
- const salt = bcrypt.genSaltSync(saltRounds);
+//  const saltRounds = 10;
+//  const salt = bcrypt.genSaltSync(saltRounds);
 
 
 router.post("/create", async(req,res,next)=>{
@@ -12,10 +12,11 @@ router.post("/create", async(req,res,next)=>{
         const {email}=req.body
         const user= await usermdal.findOne({email})
         if(!user){
-                    const hash = bcrypt.hashSync(req.body.password, salt);
-                    req.body.password = hash;
+                    // const hash = bcrypt.hashSync(req.body.password, salt);
+                    // req.body.password = hash;
                      new_user = new usermdal(req.body);
                     await new_user.save()
+                    console.log(new_user);
           // const hashpassword=await bcrypt.hash(password,10);
           // const newuser= new usermdal({email,password:hashpassword})
           // await newuser.save()
