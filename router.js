@@ -4,12 +4,6 @@ const bcrypt = require("bcrypt");
  const nodemailer=require("nodemailer")
 
 
-
-router.get("/",(req,res,next)=>{
-  res.json({"name":"shanmugam","email":"abdesham@gmail.com","password":"shan456"})
-})
-
-
 router.post("/create", async(req,res,next)=>{
     try {
         const {email,password}=req.body
@@ -69,7 +63,7 @@ router.post("/create", async(req,res,next)=>{
       if(err){
         return res.status(404).json({messege:"something is wrong"})
       }
-      res.status(200).json({messege:"reset password mail sent"+infor.response})
+      res.status(200).json({messege:"reset password mail sent"})
     })
 
 
