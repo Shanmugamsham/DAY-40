@@ -3,15 +3,22 @@ const usermdal=require("./database")
 const bcrypt = require("bcrypt");
 //  const nodemailer=require("nodemailer")
 
+ const saltRounds = 10;
+ const salt = bcrypt.genSaltSync(saltRounds);
+
 
 router.post("/create", async(req,res,next)=>{
     try {
-        const {email,password}=req.body
+        const {email}=req.body
         const user= await usermdal.findOne({email})
         if(!user){
-          const hashpassword=await bcrypt.hash(password,10);
-          const newuser= new usermdal({email,password:hashpassword})
-          await newuser.save()
+                    const hash = bcrypt.hashSync(req.body.password, salt);
+                    req.body.password = hash;
+                     new_user = new usermdal(req.body);
+                    await new_user.save()
+          // const hashpassword=await bcrypt.hash(password,10);
+          // const newuser= new usermdal({email,password:hashpassword})
+          // await newuser.save()
           return res.status(200).json({messege:"user is created"})
          
         }
